@@ -7,16 +7,7 @@ import "./UFO.sol";
 import "./AlienVacationLibrary.sol";
 
 contract AlienVacation is ERC721Enumerable {
-    /*
-  ___                                    _
- / _ \                                  (_)
-/ /_\ \_ __   ___  _ __  _   _ _ __ ___  _  ___ ___
-|  _  | '_ \ / _ \| '_ \| | | | '_ ` _ \| |/ __/ _ \
-| | | | | | | (_) | | | | |_| | | | | | | | (_|  __/
-\_| |_/_| |_|\___/|_| |_|\__, |_| |_| |_|_|\___\___|
-                          __/ |
-                         |___/
-*/
+
     using AlienVacation for uint8;
 
     struct Trait {
@@ -68,10 +59,10 @@ contract AlienVacation is ERC721Enumerable {
     ];
 
     //uint arrays
-    uint16[][8] TIERS;
+    uint16[][6] TIERS;
 
     //address
-    address cheethAddress;
+    address ufoAddress;
     address _owner;
 
     constructor() ERC721("Alien Vacation", "AV") {
@@ -79,22 +70,19 @@ contract AlienVacation is ERC721Enumerable {
 
         //Declare all the rarity tiers
 
-        //Hat
-        TIERS[0] = [50, 150, 200, 300, 400, 500, 600, 900, 1200, 5700];
-        //whiskers
-        TIERS[1] = [200, 800, 1000, 3000, 5000];
-        //Neck
-        TIERS[2] = [300, 800, 900, 1000, 7000];
-        //Earrings
-        TIERS[3] = [50, 200, 300, 300, 9150];
-        //Eyes
-        TIERS[4] = [50, 100, 400, 450, 500, 700, 1800, 2000, 2000, 2000];
+        //Background
+        TIERS[0] = [100, 200, 300, 500, 700, 1000, 1000, 1500, 2200, 2500];
+        //Body
+        TIERS[1] = [20, 200, 300, 500, 3580, 5400];
+        //Accessories
+        TIERS[2] = [100, 200, 300, 500, 700, 1000, 1000, 1300, 1900, 3000];
         //Mouth
-        TIERS[5] = [1428, 1428, 1428, 1429, 1429, 1429, 1429];
-        //Nose
-        TIERS[6] = [2000, 2000, 2000, 2000, 2000];
-        //Character
-        TIERS[7] = [20, 70, 721, 1000, 1155, 1200, 1300, 1434, 1541, 1559];
+        TIERS[3] = [100, 200, 300, 500, 700, 1100, 1100, 1300, 1700, 3000];
+        //Eyes
+        TIERS[4] = [25, 175, 200, 300, 500, 500, 500, 2000, 2500, 3300];
+        //Headwear
+        TIERS[5] = [25, 50, 100, 325, 500, 1500, 1500, 1500, 1500, 3000];
+
     }
 
     /*
@@ -141,11 +129,11 @@ contract AlienVacation is ERC721Enumerable {
     ) internal returns (string memory) {
         require(_c < 10);
 
-        // This will generate a 9 character string.
-        //The last 8 digits are random, the first is 0, due to the mouse not being burned.
+        // This will generate a 7 character string.
+        //The last 6 digits are random, the first is 0, due to the mouse not being burned.
         string memory currentHash = "0";
 
-        for (uint8 i = 0; i < 8; i++) {
+        for (uint8 i = 0; i < 6; i++) {
             SEED_NONCE++;
             uint16 _randinput = uint16(
                 uint256(
@@ -175,7 +163,7 @@ contract AlienVacation is ERC721Enumerable {
     /**
      * @dev Returns the current cheeth cost of minting.
      */
-    function currentCheethCost() public view returns (uint256) {
+    function currentUfoCost() public view returns (uint256) {
         uint256 _totalSupply = totalSupply();
 
         if (_totalSupply <= 2000) return 0;
@@ -211,11 +199,11 @@ contract AlienVacation is ERC721Enumerable {
     /**
      * @dev Mints new tokens.
      */
-    function mintMouse() public {
+    function mintAlien() public {
         if (totalSupply() < MINTS_PER_TIER) return mintInternal();
 
         //Burn this much cheeth
-        ICheeth(cheethAddress).burnFrom(msg.sender, currentCheethCost());
+        UFO(ufoAddress).burnFrom(msg.sender, currentUfoCost());
 
         return mintInternal();
     }
@@ -276,7 +264,7 @@ contract AlienVacation is ERC721Enumerable {
         string memory svgString;
         bool[24][24] memory placedPixels;
 
-        for (uint8 i = 0; i < 9; i++) {
+        for (uint8 i = 0; i < 7; i++) {
             uint8 thisTraitIndex = AlienVacationLibrary.parseInt(
                 AlienVacationLibrary.substring(_hash, i, i + 1)
             );
@@ -320,7 +308,7 @@ contract AlienVacation is ERC721Enumerable {
 
         svgString = string(
             abi.encodePacked(
-                '<svg id="mouse-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 24 24"> ',
+                '<svg id="alien-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 24 24"> ',
                 svgString,
                 "<style>rect{width:1px;height:1px;} #mouse-svg{shape-rendering: crispedges;} .c00{fill:#000000}.c01{fill:#B1ADAC}.c02{fill:#D7D7D7}.c03{fill:#FFA6A6}.c04{fill:#FFD4D5}.c05{fill:#B9AD95}.c06{fill:#E2D6BE}.c07{fill:#7F625A}.c08{fill:#A58F82}.c09{fill:#4B1E0B}.c10{fill:#6D2C10}.c11{fill:#D8D8D8}.c12{fill:#F5F5F5}.c13{fill:#433D4B}.c14{fill:#8D949C}.c15{fill:#05FF00}.c16{fill:#01C700}.c17{fill:#0B8F08}.c18{fill:#421C13}.c19{fill:#6B392A}.c20{fill:#A35E40}.c21{fill:#DCBD91}.c22{fill:#777777}.c23{fill:#848484}.c24{fill:#ABABAB}.c25{fill:#BABABA}.c26{fill:#C7C7C7}.c27{fill:#EAEAEA}.c28{fill:#0C76AA}.c29{fill:#0E97DB}.c30{fill:#10A4EC}.c31{fill:#13B0FF}.c32{fill:#2EB9FE}.c33{fill:#54CCFF}.c34{fill:#50C0F2}.c35{fill:#54CCFF}.c36{fill:#72DAFF}.c37{fill:#B6EAFF}.c38{fill:#FFFFFF}.c39{fill:#954546}.c40{fill:#0B87F7}.c41{fill:#FF2626}.c42{fill:#180F02}.c43{fill:#2B2319}.c44{fill:#FBDD4B}.c45{fill:#F5B923}.c46{fill:#CC8A18}.c47{fill:#3C2203}.c48{fill:#53320B}.c49{fill:#7B501D}.c50{fill:#FFE646}.c51{fill:#FFD627}.c52{fill:#F5B700}.c53{fill:#242424}.c54{fill:#4A4A4A}.c55{fill:#676767}.c56{fill:#F08306}.c57{fill:#FCA30E}.c58{fill:#FEBC0E}.c59{fill:#FBEC1C}.c60{fill:#14242F}.c61{fill:#B06837}.c62{fill:#8F4B0E}.c63{fill:#D88227}.c64{fill:#B06837}</style></svg>"
             )
@@ -339,7 +327,7 @@ contract AlienVacation is ERC721Enumerable {
     {
         string memory metadataString;
 
-        for (uint8 i = 0; i < 9; i++) {
+        for (uint8 i = 0; i < 7; i++) {
             uint8 thisTraitIndex = AlienVacationLibrary.parseInt(
                 AlienVacationLibrary.substring(_hash, i, i + 1)
             );
@@ -460,7 +448,7 @@ contract AlienVacation is ERC721Enumerable {
      * @dev Clears the traits.
      */
     function clearTraits() public onlyOwner {
-        for (uint256 i = 0; i < 9; i++) {
+        for (uint256 i = 0; i < 7; i++) {
             delete traitTypes[i];
         }
     }
