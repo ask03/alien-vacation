@@ -310,7 +310,14 @@ contract AlienVacation is ERC721Enumerable {
             abi.encodePacked(
                 '<svg id="alien-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 24 24"> ',
                 svgString,
-                "<style>rect{width:1px;height:1px;} #mouse-svg{shape-rendering: crispedges;} .c00{fill:#000000}.c01{fill:#B1ADAC}.c02{fill:#D7D7D7}.c03{fill:#FFA6A6}.c04{fill:#FFD4D5}.c05{fill:#B9AD95}.c06{fill:#E2D6BE}.c07{fill:#7F625A}.c08{fill:#A58F82}.c09{fill:#4B1E0B}.c10{fill:#6D2C10}.c11{fill:#D8D8D8}.c12{fill:#F5F5F5}.c13{fill:#433D4B}.c14{fill:#8D949C}.c15{fill:#05FF00}.c16{fill:#01C700}.c17{fill:#0B8F08}.c18{fill:#421C13}.c19{fill:#6B392A}.c20{fill:#A35E40}.c21{fill:#DCBD91}.c22{fill:#777777}.c23{fill:#848484}.c24{fill:#ABABAB}.c25{fill:#BABABA}.c26{fill:#C7C7C7}.c27{fill:#EAEAEA}.c28{fill:#0C76AA}.c29{fill:#0E97DB}.c30{fill:#10A4EC}.c31{fill:#13B0FF}.c32{fill:#2EB9FE}.c33{fill:#54CCFF}.c34{fill:#50C0F2}.c35{fill:#54CCFF}.c36{fill:#72DAFF}.c37{fill:#B6EAFF}.c38{fill:#FFFFFF}.c39{fill:#954546}.c40{fill:#0B87F7}.c41{fill:#FF2626}.c42{fill:#180F02}.c43{fill:#2B2319}.c44{fill:#FBDD4B}.c45{fill:#F5B923}.c46{fill:#CC8A18}.c47{fill:#3C2203}.c48{fill:#53320B}.c49{fill:#7B501D}.c50{fill:#FFE646}.c51{fill:#FFD627}.c52{fill:#F5B700}.c53{fill:#242424}.c54{fill:#4A4A4A}.c55{fill:#676767}.c56{fill:#F08306}.c57{fill:#FCA30E}.c58{fill:#FEBC0E}.c59{fill:#FBEC1C}.c60{fill:#14242F}.c61{fill:#B06837}.c62{fill:#8F4B0E}.c63{fill:#D88227}.c64{fill:#B06837}</style></svg>"
+                "<style>rect{width:1px;height:1px;} #mouse-svg{shape-rendering: crispedges;}
+                .c00{fill:#000000}.c01{fill:#323C39}.c02{fill:#847E87}.c03{fill:#A0A0A0}.c04{fill:#A49393}.c05{fill:#9BADB7}.c06{fill:#CFCFCF}
+                .c07{fill:#3000FF}.c08{fill:#3E51FB}.c09{fill:#5266FA}.c10{fill:#43D6A7}.c11{fill:#3F3F74}.c12{fill:#5B6EE1}.c13{fill:#37946E}
+                .c14{fill:#5FCDE4}.c15{fill:#A3FBED}.c16{fill:#CBDBFC}.c17{fill:#F142FB}.c18{fill:#FD9FCC}.c20{fill:#ECB3DC}.c21{fill:#DBC7EC}
+                .c22{fill:#014508}.c23{fill:#02660C}.c24{fill:#058F13}.c25{fill:#6ABE30}.c26{fill:#99E550}.c27{fill:#CDC304}.c28{fill:#FBF236}
+                .c29{fill:#BE560A}.c30{fill:#DF7126}.c31{fill:#D48B55}.c32{fill:#D9A066}.c33{fill:#FB9F5C}.c34{fill:#FFD970}.c35{fill:#5F1E00}
+                .c36{fill:#663931}.c37{fill:#8A6F30}.c38{fill:#FB2323}.c39{fill:#FF5555}.c40{fill:#AC3232}.c41{fill:#EEC39A}.c42{fill:#639BFF}
+                .c43{fill:#94BF98}.c44{fill:#FFA500}.c45{fill:#D77BBA}.c46{fill:#D95763}"
             )
         );
 
@@ -343,7 +350,7 @@ contract AlienVacation is ERC721Enumerable {
                 )
             );
 
-            if (i != 8)
+            if (i != 6)
                 metadataString = string(abi.encodePacked(metadataString, ","));
         }
 
@@ -482,8 +489,8 @@ contract AlienVacation is ERC721Enumerable {
      * @param _cheethAddress The cheeth address
      */
 
-    function setCheethAddress(address _cheethAddress) public onlyOwner {
-        cheethAddress = _cheethAddress;
+    function setUfoAddress(address _ufoAddress) public onlyOwner {
+        ufoAddress = _ufoAddress;
     }
 
     /**
