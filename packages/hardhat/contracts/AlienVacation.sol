@@ -1,5 +1,6 @@
 // contracts/AlienVacation.sol
 // SPDX-License-Identifier: MIT
+// Inspired by Anonymice
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
@@ -8,7 +9,7 @@ import "./AlienVacationLibrary.sol";
 
 contract AlienVacation is ERC721Enumerable {
 
-    using AlienVacation for uint8;
+    using AlienVacationLibrary for uint8;
 
     struct Trait {
         string traitName;
@@ -161,7 +162,7 @@ contract AlienVacation is ERC721Enumerable {
     }
 
     /**
-     * @dev Returns the current cheeth cost of minting.
+     * @dev Returns the current ufo cost of minting.
      */
     function currentUfoCost() public view returns (uint256) {
         uint256 _totalSupply = totalSupply();
@@ -202,7 +203,7 @@ contract AlienVacation is ERC721Enumerable {
     function mintAlien() public {
         if (totalSupply() < MINTS_PER_TIER) return mintInternal();
 
-        //Burn this much cheeth
+        //Burn this much ufo
         UFO(ufoAddress).burnFrom(msg.sender, currentUfoCost());
 
         return mintInternal();
@@ -310,14 +311,7 @@ contract AlienVacation is ERC721Enumerable {
             abi.encodePacked(
                 '<svg id="alien-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 24 24"> ',
                 svgString,
-                "<style>rect{width:1px;height:1px;} #mouse-svg{shape-rendering: crispedges;}
-                .c00{fill:#000000}.c01{fill:#323C39}.c02{fill:#847E87}.c03{fill:#A0A0A0}.c04{fill:#A49393}.c05{fill:#9BADB7}.c06{fill:#CFCFCF}
-                .c07{fill:#3000FF}.c08{fill:#3E51FB}.c09{fill:#5266FA}.c10{fill:#43D6A7}.c11{fill:#3F3F74}.c12{fill:#5B6EE1}.c13{fill:#37946E}
-                .c14{fill:#5FCDE4}.c15{fill:#A3FBED}.c16{fill:#CBDBFC}.c17{fill:#F142FB}.c18{fill:#FD9FCC}.c20{fill:#ECB3DC}.c21{fill:#DBC7EC}
-                .c22{fill:#014508}.c23{fill:#02660C}.c24{fill:#058F13}.c25{fill:#6ABE30}.c26{fill:#99E550}.c27{fill:#CDC304}.c28{fill:#FBF236}
-                .c29{fill:#BE560A}.c30{fill:#DF7126}.c31{fill:#D48B55}.c32{fill:#D9A066}.c33{fill:#FB9F5C}.c34{fill:#FFD970}.c35{fill:#5F1E00}
-                .c36{fill:#663931}.c37{fill:#8A6F30}.c38{fill:#FB2323}.c39{fill:#FF5555}.c40{fill:#AC3232}.c41{fill:#EEC39A}.c42{fill:#639BFF}
-                .c43{fill:#94BF98}.c44{fill:#FFA500}.c45{fill:#D77BBA}.c46{fill:#D95763}"
+                "<style>rect{width:1px;height:1px;} #alien-svg{shape-rendering: crispedges;} .c00{fill:#000000}.c01{fill:#323C39}.c02{fill:#847E87}.c03{fill:#A0A0A0}.c04{fill:#A49393}.c05{fill:#9BADB7}.c06{fill:#CFCFCF}.c07{fill:#3000FF}.c08{fill:#3E51FB}.c09{fill:#5266FA}.c10{fill:#43D6A7}.c11{fill:#3F3F74}.c12{fill:#5B6EE1}.c13{fill:#37946E}.c14{fill:#5FCDE4}.c15{fill:#A3FBED}.c16{fill:#CBDBFC}.c17{fill:#F142FB}.c18{fill:#FD9FCC}.c19{fill:#CF9DC1}.c20{fill:#ECB3DC}.c21{fill:#DBC7EC}.c22{fill:#014508}.c23{fill:#02660C}.c24{fill:#058F13}.c25{fill:#6ABE30}.c26{fill:#99E550}.c27{fill:#CDC304}.c28{fill:#FBF236}.c29{fill:#BE560A}.c30{fill:#DF7126}.c31{fill:#D48B55}.c32{fill:#D9A066}.c33{fill:#FB9F5C}.c34{fill:#FFD970}.c35{fill:#5F1E00}.c36{fill:#663931}.c37{fill:#8A6F30}.c38{fill:#FB2323}.c39{fill:#FF5555}.c40{fill:#AC3232}.c41{fill:#EEC39A}.c42{fill:#639BFF}.c43{fill:#94BF98}.c44{fill:#FFA500}.c45{fill:#D77BBA}.c46{fill:#D95763}.c47{fill:#8F563B}.c48{fill:#222034}</style></svg>"
             )
         );
 
@@ -485,8 +479,8 @@ contract AlienVacation is ERC721Enumerable {
     }
 
     /**
-     * @dev Sets the cheeth ERC20 address
-     * @param _cheethAddress The cheeth address
+     * @dev Sets the ufo ERC20 address
+     * @param _ufoAddress The ufo address
      */
 
     function setUfoAddress(address _ufoAddress) public onlyOwner {
